@@ -4,15 +4,12 @@
 
 ### Method
 
-For each of the five candidate repositories I pulled the GitHub language statistics
-through the public REST API (`/repos/{owner}/{repo}/languages`) and combined them
-with the project README / `pyproject.toml` / `setup.py` to decide whether the
-project is *strictly* Python-primary (Python is the main language used to build
-and ship the product, not just one of several first-class languages).
+For each of the five candidate repositories, I checked the GitHub language statistics using the public REST API (`/repos/{owner}/{repo}/languages`) and combined that with information from the repository README and project configuration files such as `pyproject.toml` and `setup.py`.
 
-Threshold I used: a repository is treated as **Python-primary** when Python
-accounts for **≥ 80 % of the source bytes** and no other general-purpose
-language is co-equal in the build of the shipped product.
+My goal was to determine whether Python was the main language used in the repository or whether the project was more of a multi-language platform.
+
+For this assessment, I treated a repository as primarily Python-based when Python made up most of the codebase (roughly 80% or more) and no other major language played an equally important role in the core platform implementation.
+
 
 ### Language breakdown (bytes reported by GitHub)
 
