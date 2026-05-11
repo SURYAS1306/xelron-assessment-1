@@ -106,10 +106,6 @@ Python connector SDK**, not a Python codebase.
 
 ## Conclusion
 
-Of the five repositories I was asked to evaluate, **four are strictly
-Python-primary** (`aiokafka`, `archivematica`, `beets`, `MetaGPT`) and **one is
-polyglot** (`airbyte`). For the rest of this assessment I chose **`aiokafka`**
-because (a) it is unambiguously Python-primary, (b) I am personally comfortable
-with `asyncio` and the Kafka protocol, and (c) its PR history contains several
-small, well-scoped, mostly self-contained changes that are realistic to reason
-about in a short window.
+Conclusion
+
+Of the five repositories I evaluated, four are primarily Python-based (`aiokafka`, `archivematica`, `beets`, and `MetaGPT`) while `airbyte` is more of a polyglot platform. For the rest of this assessment, I chose `aiokafka` because (a) it is clearly Python-focused, (b) I was more comfortable following its `asyncio`-based consumer flow and architecture, and (c) its PR history contains several small, well-scoped, mostly self-contained changes that were realistic to analyze carefully within the assessment timeline.
