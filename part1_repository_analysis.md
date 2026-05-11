@@ -4,7 +4,7 @@
 
 ### Method
 
-For each of the five candidate repositories, I checked the GitHub language statistics using the public REST API (`/repos/{owner}/{repo}/languages`) and combined that with information from the repository README and project configuration files such as `pyproject.toml` and `setup.py`.
+I checked the GitHub language statistics for all five repositories using the public REST API (`/repos/{owner}/{repo}/languages`) and combined that with information from the repository README and project configuration files such as `pyproject.toml` and `setup.py`.
 
 My goal was to determine whether Python was the main language used in the repository or whether the project was more of a multi-language platform.
 
