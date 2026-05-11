@@ -19,14 +19,11 @@ the upstream `Consumer.java` javadoc and then port. Third, the change is
 clear acceptance test that doesn't have to reason about ten interlocking
 modules.
 
-My background lines up well with this PR. I have written async Python services
-with `asyncio` and have used `aiokafka` and `kafka-python` as users, so the
-`AIOKafkaConsumer` mental model — `subscribe()` → `JoinGroup` → assignment →
-`Fetcher` background loop → `getone()` — is already in my head. I also have
-production experience with consumer-group rebalances and `auto.offset.reset`,
-which is exactly the machinery this PR reuses. I do **not** know the Cython
-record layer or the SASL/Kerberos paths, so I deliberately avoided PRs that
-touch those (e.g. #232 which rewrites the fetcher onto `LegacyRecordBatch`).
+My technical background lines up reasonably well with this PR. Through my open-source contributions and GSoC work, I have spent time exploring larger backend-oriented codebases, understanding existing abstractions, and tracing request and state-management flows across multiple modules.
+
+My GSoC project around authentication and RBAC integration in Uyuni also involved studying real authentication pipelines, role-management flows, connection handling, and integration strategies inside an existing production-scale system. That made it easier for me to follow how `aiokafka` coordinates partition assignment, fetch-position management, and offset-reset handling across the consumer, coordinator, and fetcher layers.
+
+I was also more comfortable with this PR because it extends existing consumer-offset logic instead of introducing a completely separate subsystem. At the same time, I intentionally avoided PRs that heavily modified lower-level components like the Cython record implementation or authentication protocol internals because I wanted to choose a change that I could fully understand and reason about within the assessment timeline.
 
 The challenges I anticipate are concurrency-related, not API-design ones.
 
