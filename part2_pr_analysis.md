@@ -19,7 +19,7 @@ in my own words without hand-waving over architecture I don't really know.
 Link: <https://github.com/aio-libs/aiokafka/pull/193>
 Author: `@tvoinarovskyi` · Merged `Jul 27 2017` · 207 additions / 21 deletions across 5 files.
 
-### PR Summary (≈ 130 words)
+### PR Summary 
 
 Before this change `AIOKafkaConsumer` only let you reposition a partition with
 two methods: `seek(tp, offset)` (jump to a specific absolute offset) and
@@ -52,7 +52,7 @@ delegates the actual reset to the existing `OffsetResetStrategy.EARLIEST` /
 - `tests/test_client.py`
   - Stabilises an existing flaky timing test by enlarging the sleeps (unrelated noise).
 
-### Implementation approach (≈ 180 words)
+### Implementation approach
 
 The two new methods follow the same skeleton, which is the key design decision
 of the PR — the author keeps both functions almost identical so the behaviour
@@ -80,7 +80,7 @@ is symmetric and easy to test:
 `seek_to_committed` is reshaped to use the same 5-step skeleton so all three
 methods share the validation and the new `IllegalStateError` semantics.
 
-### Potential impact (≈ 90 words)
+### Potential impact 
 
 The change is **additive** for `seek_to_beginning` / `seek_to_end` — no caller
 can be relying on these methods because they didn't exist. The **breaking part**
@@ -99,7 +99,7 @@ therefore see a slightly later / different error path.
 Link: <https://github.com/aio-libs/aiokafka/pull/115>
 Author: `@tvoinarovskyi` · Merged `Mar 19 2017` · 165 additions / 33 deletions across 4 files.
 
-### PR Summary (≈ 130 words)
+### PR Summary
 
 In a Kafka **log-compacted** topic the broker is allowed to delete older records
 that have been superseded by a newer record with the same key. The visible
@@ -132,7 +132,7 @@ also behaves correctly when the user calls `seek()` while a fetch is in flight.
 - `tests/test_fetcher.py`
   - Adds `test_compacted_topic_consumption`: builds a synthetic `FetchResponse` with offsets `160, 162, 167`, seeks the consumer to `155`, and asserts that all three messages are returned and `position` walks `161 → 163 → 168`.
 
-### Implementation approach (≈ 190 words)
+### Implementation approach
 
 The PR isolates the bug in one place — the `FetchBuffer.getone` / `getall`
 loops. The root cause is the assumption "the broker only ever returns the next
@@ -154,7 +154,7 @@ position` as stale and clears itself. This keeps the two concerns
 (`compacted-offsets`, `user-seek-during-fetch`) cleanly separated in the same
 buffer.
 
-### Potential impact (≈ 95 words)
+### Potential impact
 
 This is an internal fix to the consumer fetch loop, so the public API does not
 change. The behavioural impact is exactly what the issue asks for: consumers
